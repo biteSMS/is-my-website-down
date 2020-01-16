@@ -2,7 +2,7 @@ name: Check if my website is down
 
 on:
   schedule:
-    - cron: "*/60 * * * *"
+    - cron: "*/30 * * * *"
   push:
     branches:
       - master
@@ -12,12 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Setup Node.js for use with actions
+      - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
-          node-version: "12.x"
-      - name: Cache
-        uses: actions/cache@v1.1.0
+          node-version: '12.x'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v1
         with:
           path: node_modules
           key: ${{ runner.OS }}-npm-cache
@@ -32,5 +32,5 @@ jobs:
           node index.js
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
-          GH_USERNAME: biteSMS
+          GH_USERNAME: bitesms
           GIST_ID: 8e62b2c5c74cb36fd0935fe476670875

@@ -1,0 +1,15 @@
+{
+  "name": "is-my-website-down",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/biteSMS/is-my-website-down.git",
+  "author": "Wentz Chen <me@pannnda.com>",
+  "license": "MIT",
+  "dependencies": {
+    "actions-toolkit": "^2.2.0",
+    "axios": "^0.19.1",
+    "dotenv": "^8.2.0",
+    "gist-box": "^0.3.0",
+    "moment": "^2.24.0"
+  }
+}

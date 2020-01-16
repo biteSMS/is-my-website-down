@@ -11,26 +11,26 @@ jobs:
   checker:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup Node.js for use with actions
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-    - name: Cache
-      uses: actions/cache@v1.1.0
-      with:
-        path: node_modules
-        key: ${{ runner.OS }}-npm-cache
-        restore-keys: |
-          ${{ runner.OS }}-npm-cache
-    - name: Install Dependencies
-      run: |
-        npm install -g yarn
-        yarn --frozen-lockfile --non-interactive
-    - name: Run Script
-      run: |
-        node index.js
-      env:
-        GH_PAT: ${{ secrets.GH_PAT }}
-        GH_USERNAME: biteSMS
-        GIST_ID: 8e62b2c5c74cb36fd0935fe476670875
+      - uses: actions/checkout@v1
+      - name: Setup Node.js for use with actions
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Cache
+        uses: actions/cache@v1.1.0
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Install Dependencies
+        run: |
+          npm install -g yarn
+          yarn --frozen-lockfile --non-interactive
+      - name: Run Script
+        run: |
+          node index.js
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_USERNAME: biteSMS
+          GIST_ID: 8e62b2c5c74cb36fd0935fe476670875

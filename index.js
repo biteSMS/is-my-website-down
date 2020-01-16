@@ -27,17 +27,20 @@ Toolkit.run(
     ];
     let status = [];
 
-    // for (let i = 0; i < websites.length; i++) {
-      let closed = true;
-      let res = await axios.get(websites[0].url);
-      if (res.status === 200) {
-        closed = false;
-      }
+    const fetchSite = website => new Promise((resolved, rejected) => {
+      let closed = true
+      axios.get(website.url).then(res => {
+        if (res.status === 200) {
+          closed = false
+        }
+      })
       status.push({
-        name: websites[0].name,
+        name: website.name,
         closed
-      });
-    // }
+      })
+    })
+
+    await Promise.all(websites.map(s => fetchSite(s)))
 
     const time = moment().format("YYYY-MM-DD kk:mm ZZ");
 

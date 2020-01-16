@@ -27,7 +27,7 @@ Toolkit.run(
     ];
     let status = [];
 
-    const fetchSite = website => new Promise((resolved, rejected) => {
+    const fetchSite = website => new Promise(resolved => {
       let closed = true
       axios.get(website.url).then(res => {
         if (res.status === 200) {
@@ -38,6 +38,7 @@ Toolkit.run(
         name: website.name,
         closed
       })
+      resolved()
     })
 
     await Promise.all(websites.map(s => fetchSite(s)))

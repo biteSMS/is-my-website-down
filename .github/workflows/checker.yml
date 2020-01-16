@@ -1,0 +1,34 @@
+name: Check if my website is down
+
+on:
+  schedule:
+    - cron: "*/60 * * * *"
+  push:
+    branches:
+      - master
+
+jobs:
+  checker:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Node.js for use with actions
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Cache
+      uses: actions/cache@v1.1.0
+      with:
+        path: node_modules
+        key: ${{ runner.OS }}-npm-cache
+        restore-keys: |
+          ${{ runner.OS }}-npm-cache
+    - name: Install Dependencies
+      run: |
+        npm install -g yarn
+        yarn --frozen-lockfile --non-interactive
+    - name: Run Script
+      run: |
+        node index.js

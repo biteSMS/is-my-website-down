@@ -14,7 +14,7 @@ Toolkit.run(
 
     let closed = true
     for (let i = 0; i < 3; i++) {
-      await axios.get('https://www.pannnda.com').then(res => {
+      await axios.get('https://www.zhihu.com').then(res => {
         if (res.status === 200) {
           closed = false
         }

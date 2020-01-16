@@ -27,17 +27,17 @@ Toolkit.run(
     ];
     let status = [];
 
-    for (let i = 0; i < websites.length; i++) {
+    // for (let i = 0; i < websites.length; i++) {
       let closed = true;
-      let res = await axios.get(websites[i].url);
+      let res = await axios.get(websites[0].url);
       if (res.status === 200) {
         closed = false;
       }
       status.push({
-        name: websites[i].name,
+        name: websites[0].name,
         closed
       });
-    }
+    // }
 
     const time = moment().format("YYYY-MM-DD kk:mm ZZ");
 

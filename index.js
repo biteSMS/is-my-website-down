@@ -27,27 +27,28 @@ Toolkit.run(
     ];
     let status = [];
 
-    const fetchSite = website => new Promise(resolved => {
-      let closed = true
-      axios.get(website.url).then(res => {
-        if (res.status === 200) {
-          closed = false
-        }
-      })
-      status.push({
-        name: website.name,
-        closed
-      })
-      resolved()
-    })
+    const fetchSite = website =>
+      new Promise(resolved => {
+        let closed = true;
+        axios.get(website.url).then(res => {
+          if (res.status === 200) {
+            closed = false;
+          }
+        });
+        status.push({
+          name: website.name,
+          closed
+        });
+        resolved();
+      });
 
-    await Promise.all(websites.map(s => fetchSite(s)))
+    await Promise.all(websites.map(s => fetchSite(s)));
 
     const time = moment().format("YYYY-MM-DD kk:mm ZZ");
 
     let content = status
       .map(s => `${s.name}: ${s.closed ? "closed." : "running..."}\n`)
-      .join("");
+      .join("\n" + time);
 
     const box = new GistBox({ id: GIST_ID, token: GH_PAT });
     try {

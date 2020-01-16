@@ -23,6 +23,10 @@ Toolkit.run(
       {
         name: "jwzx",
         url: "https://jwzx.pannnda.com"
+      },
+      {
+        name: 'zhihu',
+        url: 'https://www.zhihu.com'
       }
     ];
     let status = [];
@@ -30,13 +34,11 @@ Toolkit.run(
     const fetchSite = website =>
       new Promise(async resolved => {
         let closed = true;
-        for (let i = 0; i < 3; i++) {
-          await axios.get(website.url).then(res => {
+        axios.get(website.url).then(res => {
             if (res.status === 200) {
               closed = false;
             }
           });
-        }
         status.push({
           name: website.name,
           closed
@@ -50,7 +52,8 @@ Toolkit.run(
 
     let content = status
       .map(s => `${s.name}: ${s.closed ? "closed." : "running..."}\n`)
-      .join("\n" + time);
+      .join("")
+      .concat(`\n${time}`);
 
     const box = new GistBox({ id: GIST_ID, token: GH_PAT });
     try {

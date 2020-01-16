@@ -28,13 +28,15 @@ Toolkit.run(
     let status = [];
 
     const fetchSite = website =>
-      new Promise(resolved => {
+      new Promise(async resolved => {
         let closed = true;
-        axios.get(website.url).then(res => {
-          if (res.status === 200) {
-            closed = false;
-          }
-        });
+        for (let i = 0; i < 3; i++) {
+          await axios.get(website.url).then(res => {
+            if (res.status === 200) {
+              closed = false;
+            }
+          });
+        }
         status.push({
           name: website.name,
           closed

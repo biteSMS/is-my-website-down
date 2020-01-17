@@ -27,8 +27,8 @@ Toolkit.run(
     ];
     let status = [];
 
-    const fetchSite = async website =>
-      new Promise(resolved => {
+    const fetchSite = website =>
+      new Promise(async resolved => {
         let closed = true;
         let res = await axios.get(website.url);
         if (res.status === 200) {
@@ -41,7 +41,10 @@ Toolkit.run(
         resolved();
       });
 
-    await Promise.all(websites.map(s => fetchSite(s)));
+    //await Promise.all(websites.map(s => fetchSite(s)));
+    for (let i = 0; i < websites.length; i++) {
+      await fetchSite(websites[i])
+    }
 
     const time = moment().format("YYYY-MM-DD kk:mm ZZ");
 

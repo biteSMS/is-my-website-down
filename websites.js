@@ -4,8 +4,8 @@ module.exports = [
     url: "https://www.pannnda.com"
   },
   {
-    name: "blog",
-    url: "https://blog.pannnda.com"
+    name: "cdn",
+    url: "https://cdn.pannnda.com/images/favicon.png"
   },
   {
     name: "jwzx",

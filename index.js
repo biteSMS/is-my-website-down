@@ -49,7 +49,7 @@ Toolkit.run(
     const time = moment().utcOffset(480).format("YYYY-MM-DD kk:mm ZZ");
 
     let content = status
-      .map(s => `${s.name} ${s.closed ? "🔴closed." : "🟢running..."}\n`)
+      .map(s => `${s.name}\t${s.closed ? "🔴closed." : "🟢running..."}\n`)
       .join("")
       .concat(`\n${time}`);
 

@@ -1,4 +1,4 @@
-modules.export = [
+module.exports = [
   {
     name: "pannnda",
     url: "https://www.pannnda.com"

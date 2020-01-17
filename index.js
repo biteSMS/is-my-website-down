@@ -43,6 +43,7 @@ Toolkit.run(
     const fetchSite = async website => {
       let closed = true;
       let res = await axios.get(website.url);
+      tools.log.debug(`Fetching ${website.url}`);
       if (res.status === 200) {
         closed = false;
       }
@@ -53,6 +54,7 @@ Toolkit.run(
     };
 
     //await Promise.all(websites.map(s => fetchSite(s)));
+    tools.log.debug(`Starting fetchSite...`);
     for (let i = 0; i < websites.length; i++) {
       await fetchSite(websites[i]);
     }

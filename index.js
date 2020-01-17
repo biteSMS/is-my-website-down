@@ -3,6 +3,7 @@ const axios = require("axios");
 const moment = require("moment");
 const { Toolkit } = require("actions-toolkit");
 const { GistBox } = require("gist-box");
+const websites = require("./websites");
 
 Toolkit.run(
   async tools => {
@@ -11,44 +12,27 @@ Toolkit.run(
     // Get the user's public events
     tools.log.debug(`Getting activity for ${GH_USERNAME}`);
 
-    let websites = [
-      {
-        name: "pannnda",
-        url: "https://www.pannnda.com"
-      },
-      {
-        name: "blog",
-        url: "https://blog.pannnda.com"
-      },
-      {
-        name: "jwzx",
-        url: "http://jwzx.pannnda.com"
-      }
-    ];
-    let status = [];
-
     const fetchSite = website =>
       new Promise(async resolved => {
         let closed = true;
-        tools.log.debug(`Fetching ${website.url}`)
+        tools.log.debug(`Fetching ${website.url}`);
         let res = await axios.get(website.url);
-        tools.log.debug(`${website.name} finished.`)
+        tools.log.debug(`${website.name} finished.`);
         if (res.status === 200) {
           closed = false;
         }
-        status.push({
-          name: website.name,
-          closed
-        });
+        websites.find(s => s === website).closed = closed;
         resolved();
       });
 
     tools.log.debug(`Starting fetchSite...`);
     await Promise.all(websites.map(s => fetchSite(s)));
 
-    const time = moment().utcOffset(480).format("YYYY-MM-DD kk:mm ZZ");
+    const time = moment()
+      .utcOffset(480)
+      .format("YYYY-MM-DD kk:mm ZZ");
 
-    let content = status
+    let content = websites
       .map(s => `${s.name}\t${s.closed ? "🔴closed." : "🟢running..."}\n`)
       .join("")
       .concat(`\n${time}`);

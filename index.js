@@ -27,23 +27,34 @@ Toolkit.run(
     ];
     let status = [];
 
-    const fetchSite = website =>
-      new Promise(async resolved => {
-        let closed = true;
-        let res = await axios.get(website.url);
-        if (res.status === 200) {
-          closed = false;
-        }
-        status.push({
-          name: website.name,
-          closed
-        });
-        resolved();
+    // const fetchSite = website =>
+    //   new Promise(async resolved => {
+    //     let closed = true;
+    //     let res = await axios.get(website.url);
+    //     if (res.status === 200) {
+    //       closed = false;
+    //     }
+    //     status.push({
+    //       name: website.name,
+    //       closed
+    //     });
+    //     resolved();
+    //   });
+    const fetchSite = async website => {
+      let closed = true;
+      let res = await axios.get(website.url);
+      if (res.status === 200) {
+        closed = false;
+      }
+      status.push({
+        name: website.name,
+        closed
       });
+    };
 
     //await Promise.all(websites.map(s => fetchSite(s)));
     for (let i = 0; i < websites.length; i++) {
-      await fetchSite(websites[i])
+      await fetchSite(websites[i]);
     }
 
     const time = moment().format("YYYY-MM-DD kk:mm ZZ");

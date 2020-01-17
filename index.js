@@ -13,16 +13,24 @@ Toolkit.run(
     tools.log.debug(`Getting activity for ${GH_USERNAME}`);
 
     const fetchSite = website =>
-      new Promise(async resolved => {
+      new Promise(resolved => {
         let closed = true;
         tools.log.debug(`Fetching ${website.url}`);
-        let res = await axios.get(website.url);
-        tools.log.debug(`${website.name} finished.`);
-        if (res.status === 200) {
-          closed = false;
-        }
-        websites.find(s => s === website).closed = closed;
-        resolved();
+        axios
+          .get(website.url)
+          .then(res => {
+            tools.log.debug(`${website.name} finished.`);
+            if (res.status === 200) {
+              closed = false;
+            }
+          })
+          .catch(err => {
+            tools.log.debug(`${website.name} failed. error: ${err}`);
+          })
+          .finally(() => {
+            websites.find(s => s === website).closed = closed;
+            resolved();
+          });
       });
 
     tools.log.debug(`Starting fetchSite...`);

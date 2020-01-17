@@ -30,7 +30,9 @@ Toolkit.run(
     const fetchSite = website =>
       new Promise(async resolved => {
         let closed = true;
+        tools.log.debug(`Fetching ${website.url}`)
         let res = await axios.get(website.url);
+        tools.log.debug(`${website.name} finished.`)
         if (res.status === 200) {
           closed = false;
         }
@@ -40,29 +42,14 @@ Toolkit.run(
         });
         resolved();
       });
-    // const fetchSite = async website => {
-    //   let closed = true;
-    //   let res = await axios.get(website.url);
-    //   tools.log.debug(`Fetching ${website.url}`);
-    //   if (res.status === 200) {
-    //     closed = false;
-    //   }
-    //   status.push({
-    //     name: website.name,
-    //     closed
-    //   });
-    // };
 
     tools.log.debug(`Starting fetchSite...`);
     await Promise.all(websites.map(s => fetchSite(s)));
-    // for (let i = 0; i < websites.length; i++) {
-    //   await fetchSite(websites[i]);
-    // }
 
-    const time = moment().format("YYYY-MM-DD kk:mm ZZ");
+    const time = moment().utcOffset(480).format("YYYY-MM-DD kk:mm ZZ");
 
     let content = status
-      .map(s => `${s.name}: ${s.closed ? "closed." : "running..."}\n`)
+      .map(s => `${s.name} ${s.closed ? "🔴closed." : "🟢running..."}\n`)
       .join("")
       .concat(`\n${time}`);
 

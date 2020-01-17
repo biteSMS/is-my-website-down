@@ -18,11 +18,11 @@ Toolkit.run(
       },
       {
         name: "blog",
-        url: "https://blog.pannnda.com"
+        url: "https://www.baidu.com"
       },
       {
         name: "jwzx",
-        url: "https://jwzx.pannnda.com"
+        url: "https://www.zhihu.com"
       }
     ];
     let status = [];

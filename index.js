@@ -35,7 +35,7 @@ Toolkit.run(
     let content = websites
       .map(s => `${s.name}\t${s.closed ? "🔴closed." : "🟢running..."}\n`)
       .join("")
-      .concat(`\n${time}`);
+      .concat(`${time}`);
 
     const box = new GistBox({ id: GIST_ID, token: GH_PAT });
     try {

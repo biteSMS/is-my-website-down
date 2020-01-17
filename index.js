@@ -27,8 +27,8 @@ Toolkit.run(
     ];
     let status = [];
 
-    const fetchSite = website =>
-      new Promise(async resolved => {
+    const fetchSite = async website =>
+      new Promise(resolved => {
         let closed = true;
         let res = await axios.get(website.url);
         if (res.status === 200) {

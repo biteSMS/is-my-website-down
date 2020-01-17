@@ -5,7 +5,7 @@ module.exports = [
   },
   {
     name: "cdn",
-    url: "https://cdn.pannnda.com/images/favicon.png"
+    url: "https://cdn.pannnda.com"
   },
   {
     name: "jwzx",
